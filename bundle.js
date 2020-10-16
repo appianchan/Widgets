@@ -52,20 +52,39 @@ var Clock = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, Clock);
 
     _this = _super.call(this, props);
-    state = {
-      time: "new Date()"
+    _this.state = {
+      time: new Date()
     };
     _this.tick = _this.tick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Clock, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.intervalId = setInterval(this.tick, 1000);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.intervalId);
+    }
+  }, {
     key: "tick",
-    value: function tick() {}
+    value: function tick() {
+      this.setState({
+        time: new Date()
+      });
+    }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Clock"));
+      var hours = this.state.time.getHours();
+      var minutes = this.state.time.getMinutes();
+      var seconds = this.state.time.getSeconds();
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Clock"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        "class": "time"
+      }, hours, ":", minutes, ":", seconds));
     }
   }]);
 
